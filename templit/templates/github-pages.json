@@ -1,0 +1,11 @@
+{
+  "desc": "GitHub Pages static site with deploy workflow",
+  "tags": ["web", "github", "html"],
+  "files": {
+    "index.html": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>{{project}}</title>\n    <link rel=\"stylesheet\" href=\"style.css\" />\n  </head>\n  <body>\n    <main>\n      <h1>{{project}}</h1>\n      <p>Edit <code>index.html</code> to get started.</p>\n    </main>\n    <script src=\"main.js\"></script>\n  </body>\n</html>\n",
+    "style.css": "*, *::before, *::after { box-sizing: border-box; }\n\nbody {\n  margin: 0;\n  font-family: system-ui, sans-serif;\n  padding: 2rem;\n}\n\nmain { max-width: 800px; margin: 0 auto; }\n",
+    "main.js": "console.log(\"{{project}} loaded\");\n",
+    ".github/workflows/deploy.yml": "name: Deploy to GitHub Pages\n\non:\n  push:\n    branches: [main]\n\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n    permissions:\n      pages: write\n      id-token: write\n    environment:\n      name: github-pages\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/upload-pages-artifact@v3\n        with:\n          path: .\n      - uses: actions/deploy-pages@v4\n",
+    "README.md": "# {{project}}\n\nA GitHub Pages site. Push to `main` to deploy automatically.\n"
+  }
+}

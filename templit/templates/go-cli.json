@@ -1,0 +1,11 @@
+{
+  "desc": "Go CLI app with cobra",
+  "tags": ["go", "cli"],
+  "files": {
+    "go.mod": "module github.com/you/{{project}}\n\ngo 1.22\n\nrequire github.com/spf13/cobra v1.8.0\n",
+    "main.go": "package main\n\nimport \"github.com/you/{{project}}/cmd\"\n\nfunc main() {\n\tcmd.Execute()\n}\n",
+    "cmd/root.go": "package cmd\n\nimport (\n\t\"fmt\"\n\t\"os\"\n\n\t\"github.com/spf13/cobra\"\n)\n\nvar rootCmd = &cobra.Command{\n\tUse:   \"{{project}}\",\n\tShort: \"A short description\",\n\tRun: func(cmd *cobra.Command, args []string) {\n\t\tfmt.Println(\"Hello from {{project}}\")\n\t},\n}\n\nfunc Execute() {\n\tif err := rootCmd.Execute(); err != nil {\n\t\tos.Exit(1)\n\t}\n}\n",
+    "README.md": "# {{project}}\n\n```\ngo run . --help\n```\n",
+    ".gitignore": "{{project}}\n*.exe\ndist/\n"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "desc": "Rust CLI app with clap",
+  "tags": ["rust", "cli"],
+  "files": {
+    "Cargo.toml": "[package]\nname = \"{{project}}\"\nversion = \"0.1.0\"\nedition = \"2021\"\n\n[dependencies]\nclap = { version = \"4\", features = [\"derive\"] }\n",
+    "src/main.rs": "use clap::Parser;\n\n#[derive(Parser)]\n#[command(name = \"{{project}}\", about = \"A short description\")]\nstruct Cli {\n    /// Input value\n    input: Option<String>,\n\n    /// Enable verbose output\n    #[arg(short, long)]\n    verbose: bool,\n}\n\nfn main() {\n    let cli = Cli::parse();\n    if cli.verbose {\n        eprintln!(\"verbose mode on\");\n    }\n    println!(\"Hello from {{project}}: {:?}\", cli.input);\n}\n",
+    "README.md": "# {{project}}\n\n```\ncargo run -- --help\n```\n",
+    ".gitignore": "/target\n"
+  }
+}

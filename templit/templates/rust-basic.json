@@ -1,0 +1,10 @@
+{
+  "desc": "Minimal Rust binary crate",
+  "tags": ["rust"],
+  "files": {
+    "Cargo.toml": "[package]\nname = \"{{project}}\"\nversion = \"0.1.0\"\nedition = \"2021\"\n\n[dependencies]\n",
+    "src/main.rs": "fn main() {\n    println!(\"Hello from {{project}}!\");\n}\n",
+    "README.md": "# {{project}}\n\n```\ncargo run\n```\n",
+    ".gitignore": "/target\nCargo.lock\n"
+  }
+}

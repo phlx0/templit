@@ -1,0 +1,7 @@
+{
+  "desc": "GitHub Actions CI workflow for Python (lint + test)",
+  "tags": ["ci", "github", "python"],
+  "files": {
+    ".github/workflows/ci.yml": "name: CI\n\non:\n  push:\n    branches: [main]\n  pull_request:\n\njobs:\n  test:\n    runs-on: ubuntu-latest\n    strategy:\n      matrix:\n        python-version: [\"3.11\", \"3.12\"]\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: ${{ matrix.python-version }}\n      - run: pip install -e \".[dev]\"\n      - run: ruff check .\n      - run: pytest\n"
+  }
+}

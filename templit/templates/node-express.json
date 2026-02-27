@@ -1,0 +1,11 @@
+{
+  "desc": "Express.js REST API with middleware skeleton",
+  "tags": ["node", "javascript", "web", "api"],
+  "files": {
+    "package.json": "{\n  \"name\": \"{{project}}\",\n  \"version\": \"0.1.0\",\n  \"type\": \"module\",\n  \"scripts\": {\n    \"start\": \"node src/server.js\",\n    \"dev\":   \"node --watch src/server.js\"\n  },\n  \"dependencies\": {\n    \"express\": \"^4.19.2\"\n  }\n}\n",
+    "src/server.js": "import express from \"express\";\n\nconst app  = express();\nconst PORT = process.env.PORT ?? 3000;\n\napp.use(express.json());\n\napp.get(\"/health\", (_req, res) => res.json({ status: \"ok\" }));\n\napp.listen(PORT, () =>\n  console.log(`{{project}} listening on :${PORT}`)\n);\n",
+    "README.md": "# {{project}}\n\n```\nnpm install && npm start\n```\n",
+    ".gitignore": "node_modules/\n.env\n",
+    ".env.example": "PORT=3000\n"
+  }
+}

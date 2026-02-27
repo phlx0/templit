@@ -1,0 +1,13 @@
+{
+  "desc": "FastAPI REST API skeleton with Pydantic v2",
+  "tags": ["python", "web", "api"],
+  "files": {
+    "pyproject.toml": "[build-system]\nrequires = [\"setuptools\"]\nbuild-backend = \"setuptools.build_meta\"\n\n[project]\nname = \"{{project}}\"\nversion = \"0.1.0\"\nrequires-python = \">=3.11\"\ndependencies = [\n    \"fastapi>=0.111\",\n    \"uvicorn[standard]>=0.30\",\n    \"pydantic>=2\",\n]\n\n[project.scripts]\nserve = \"{{project}}.main:serve\"\n",
+    "src/{{project}}/__init__.py": "",
+    "src/{{project}}/main.py": "from fastapi import FastAPI\nimport uvicorn\n\napp = FastAPI(title=\"{{project}}\")\n\n\n@app.get(\"/health\")\ndef health():\n    return {\"status\": \"ok\"}\n\n\ndef serve():\n    uvicorn.run(\"{{project}}.main:app\", reload=True)\n",
+    "src/{{project}}/models.py": "from pydantic import BaseModel\n\n\nclass Item(BaseModel):\n    id: int\n    name: str\n",
+    "src/{{project}}/routes/__init__.py": "",
+    "README.md": "# {{project}}\n\n```\nuvicorn {{project}}.main:app --reload\n```\n",
+    ".gitignore": "__pycache__/\ndist/\n.venv/\n.env\n"
+  }
+}

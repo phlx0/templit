@@ -1,0 +1,11 @@
+{
+  "desc": "Python CLI app with argparse, logging, entry-point",
+  "tags": ["python", "cli"],
+  "files": {
+    "pyproject.toml": "[build-system]\nrequires = [\"setuptools\"]\nbuild-backend = \"setuptools.build_meta\"\n\n[project]\nname = \"{{project}}\"\nversion = \"0.1.0\"\nrequires-python = \">=3.11\"\ndependencies = []\n\n[project.scripts]\n{{project}} = \"{{project}}.cli:main\"\n",
+    "src/{{project}}/__init__.py": "",
+    "src/{{project}}/cli.py": "import argparse\nimport logging\nimport sys\n\nlog = logging.getLogger(__name__)\n\n\ndef build_parser() -> argparse.ArgumentParser:\n    p = argparse.ArgumentParser(prog=\"{{project}}\")\n    p.add_argument(\"-v\", \"--verbose\", action=\"store_true\")\n    p.add_argument(\"input\", nargs=\"?\")\n    return p\n\n\ndef main(argv=None) -> int:\n    args = build_parser().parse_args(argv)\n    logging.basicConfig(\n        level=logging.DEBUG if args.verbose else logging.INFO,\n        format=\"%(levelname)s %(message)s\",\n    )\n    log.debug(\"args=%s\", args)\n    return 0\n\n\nif __name__ == \"__main__\":\n    sys.exit(main())\n",
+    "README.md": "# {{project}}\n\n```\n{{project}} --help\n```\n",
+    ".gitignore": "__pycache__/\n*.py[cod]\ndist/\n.venv/\n.env\n"
+  }
+}

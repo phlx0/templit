@@ -1,0 +1,10 @@
+{
+  "desc": "Minimal Node.js project (ESM, package.json)",
+  "tags": ["node", "javascript"],
+  "files": {
+    "package.json": "{\n  \"name\": \"{{project}}\",\n  \"version\": \"0.1.0\",\n  \"type\": \"module\",\n  \"main\": \"src/index.js\",\n  \"scripts\": {\n    \"start\": \"node src/index.js\",\n    \"dev\":   \"node --watch src/index.js\"\n  }\n}\n",
+    "src/index.js": "console.log(\"Hello from {{project}}\");\n",
+    "README.md": "# {{project}}\n\n```\nnpm start\n```\n",
+    ".gitignore": "node_modules/\ndist/\n.env\n"
+  }
+}

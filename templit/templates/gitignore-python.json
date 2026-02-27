@@ -1,0 +1,7 @@
+{
+  "desc": "Comprehensive .gitignore for Python projects",
+  "tags": ["git", "python"],
+  "files": {
+    ".gitignore": "# Byte-compiled\n__pycache__/\n*.py[cod]\n\n# Distribution\ndist/\nbuild/\n*.egg-info/\n\n# Virtual envs\n.venv/\nvenv/\n\n# Testing\n.pytest_cache/\n.coverage\nhtmlcov/\n\n# Typing\n.mypy_cache/\n.ruff_cache/\n\n# Env\n.env\n.env.*\n!.env.example\n\n# IDE\n.vscode/\n.idea/\n"
+  }
+}

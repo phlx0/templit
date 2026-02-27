@@ -1,0 +1,11 @@
+{
+  "desc": "Minimal Python project (src layout, pyproject.toml)",
+  "tags": ["python"],
+  "files": {
+    "pyproject.toml": "[build-system]\nrequires = [\"setuptools\"]\nbuild-backend = \"setuptools.build_meta\"\n\n[project]\nname = \"{{project}}\"\nversion = \"0.1.0\"\ndescription = \"\"\nrequires-python = \">=3.11\"\ndependencies = []\n\n[project.scripts]\n{{project}} = \"{{project}}.main:main\"\n",
+    "src/{{project}}/__init__.py": "",
+    "src/{{project}}/main.py": "def main() -> None:\n    print(\"Hello, world!\")\n\nif __name__ == \"__main__\":\n    main()\n",
+    "README.md": "# {{project}}\n\n> A short description.\n",
+    ".gitignore": "__pycache__/\n*.py[cod]\ndist/\nbuild/\n*.egg-info/\n.venv/\n.env\n"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "desc": "Handy Makefile for Python projects",
+  "tags": ["python", "make", "devops"],
+  "files": {
+    "Makefile": ".PHONY: install test lint fmt clean\n\ninstall:\n\tpip install -e \".[dev]\"\n\ntest:\n\tpytest\n\nlint:\n\truff check . && mypy src/\n\nfmt:\n\truff format .\n\nclean:\n\tfind . -type d -name __pycache__ -exec rm -rf {} +\n\trm -rf dist build *.egg-info .mypy_cache .pytest_cache\n"
+  }
+}

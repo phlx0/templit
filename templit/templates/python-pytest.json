@@ -1,0 +1,10 @@
+{
+  "desc": "pytest test suite scaffold (pyproject + conftest)",
+  "tags": ["python", "testing"],
+  "files": {
+    "pyproject.toml": "[tool.pytest.ini_options]\ntestpaths = [\"tests\"]\naddopts   = \"-ra -q\"\n\n[tool.coverage.run]\nsource = [\"src\"]\n",
+    "tests/__init__.py": "",
+    "tests/conftest.py": "import pytest\n\n\n@pytest.fixture\ndef sample():\n    return {\"key\": \"value\"}\n",
+    "tests/test_sample.py": "def test_placeholder(sample):\n    assert sample[\"key\"] == \"value\"\n"
+  }
+}

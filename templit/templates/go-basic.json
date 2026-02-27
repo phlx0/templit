@@ -1,0 +1,10 @@
+{
+  "desc": "Minimal Go module with main package",
+  "tags": ["go"],
+  "files": {
+    "go.mod": "module github.com/you/{{project}}\n\ngo 1.22\n",
+    "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n\tfmt.Println(\"Hello from {{project}}\")\n}\n",
+    "README.md": "# {{project}}\n\n```\ngo run .\n```\n",
+    ".gitignore": "# Binaries\n{{project}}\n*.exe\n\n# Build\ndist/\n"
+  }
+}
