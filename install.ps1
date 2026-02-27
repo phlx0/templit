@@ -1,6 +1,6 @@
-# install.ps1 — install templit on Windows
+# install.ps1 - install templit on Windows
 # Run from the repo root:
-#   Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+#   Unblock-File -Path .\install.ps1
 #   .\install.ps1
 #Requires -Version 5.1
 [CmdletBinding()]
@@ -9,26 +9,42 @@ param()
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-# ── helpers ───────────────────────────────────────────────────────────────────
+# helpers
 
-function Write-Ok   { param([string]$Msg) Write-Host "  $([char]0x2713) $Msg" -ForegroundColor Green }
-function Write-Err  { param([string]$Msg) Write-Host "  $([char]0x2717) $Msg" -ForegroundColor Red; exit 1 }
-function Write-Info { param([string]$Msg) Write-Host "  . $Msg" -ForegroundColor Cyan }
-function Write-Warn { param([string]$Msg) Write-Host "  ! $Msg" -ForegroundColor Yellow }
+function Write-Ok {
+    param([string]$Msg)
+    Write-Host "  $([char]0x2713) $Msg" -ForegroundColor Green
+}
+
+function Write-Err {
+    param([string]$Msg)
+    Write-Host "  $([char]0x2717) $Msg" -ForegroundColor Red
+    exit 1
+}
+
+function Write-Info {
+    param([string]$Msg)
+    Write-Host "  . $Msg" -ForegroundColor Cyan
+}
+
+function Write-Warn {
+    param([string]$Msg)
+    Write-Host "  ! $Msg" -ForegroundColor Yellow
+}
 
 function Write-Banner {
     Write-Host ""
     Write-Host "  templit installer" -ForegroundColor Cyan
-    Write-Host "  ──────────────────────────────" -ForegroundColor DarkGray
+    Write-Host "  ------------------------------" -ForegroundColor DarkGray
     Write-Host ""
 }
 
-# ── config ────────────────────────────────────────────────────────────────────
+# config
 
 $InstallDir = Join-Path $env:USERPROFILE ".templit"
 $ScriptDir  = $PSScriptRoot
 
-# ── checks ────────────────────────────────────────────────────────────────────
+# checks
 
 Write-Banner
 Write-Info "Checking requirements..."
@@ -46,42 +62,50 @@ foreach ($candidate in @("python", "python3", "py")) {
                 break
             }
         }
-    } catch { <# not found, try next #> }
+    }
+    catch {
+        # candidate not found, try next
+    }
 }
 
 if (-not $PythonCmd) {
     Write-Err "Python 3.9+ not found. Download it from https://python.org"
 }
 
-# ── virtualenv ────────────────────────────────────────────────────────────────
+# virtualenv
 
 Write-Info "Creating virtualenv at $InstallDir ..."
 if (Test-Path $InstallDir) {
-    Write-Warn "Directory $InstallDir already exists — reinstalling into it."
+    Write-Warn "Directory $InstallDir already exists - reinstalling into it."
 }
 
 & $PythonCmd -m venv $InstallDir
-if ($LASTEXITCODE -ne 0) { Write-Err "Failed to create virtualenv." }
+if ($LASTEXITCODE -ne 0) {
+    Write-Err "Failed to create virtualenv."
+}
 Write-Ok "Virtualenv ready"
 
-# ── install package ───────────────────────────────────────────────────────────
+# install package
 
-$Pip     = Join-Path $InstallDir "Scripts\pip.exe"
-$Python  = Join-Path $InstallDir "Scripts\python.exe"
+$Pip = Join-Path $InstallDir "Scripts\pip.exe"
 
 Write-Info "Upgrading pip..."
 & $Pip install --quiet --upgrade pip
-if ($LASTEXITCODE -ne 0) { Write-Err "pip upgrade failed." }
+if ($LASTEXITCODE -ne 0) {
+    Write-Err "pip upgrade failed."
+}
 
 Write-Info "Installing templit..."
 & $Pip install --quiet -e $ScriptDir
-if ($LASTEXITCODE -ne 0) { Write-Err "templit installation failed." }
+if ($LASTEXITCODE -ne 0) {
+    Write-Err "templit installation failed."
+}
 Write-Ok "Package installed"
 
-# ── add to PATH ───────────────────────────────────────────────────────────────
+# add to PATH
 
-$BinDir    = Join-Path $InstallDir "Scripts"
-$UserScope = [System.EnvironmentVariableTarget]::User
+$BinDir      = Join-Path $InstallDir "Scripts"
+$UserScope   = [System.EnvironmentVariableTarget]::User
 $CurrentPath = [System.Environment]::GetEnvironmentVariable("PATH", $UserScope)
 
 if ($CurrentPath -notlike "*$BinDir*") {
@@ -93,14 +117,14 @@ if ($CurrentPath -notlike "*$BinDir*") {
     )
     Write-Ok "Added to user PATH"
     Write-Warn "Open a new terminal for the PATH change to take effect."
-} else {
+}
+else {
     Write-Ok "$BinDir is already in user PATH"
 }
 
-# also update the current session
 $env:PATH = "$BinDir;$env:PATH"
 
-# ── done ──────────────────────────────────────────────────────────────────────
+# done
 
 Write-Host ""
 Write-Host "  All done! " -ForegroundColor Green -NoNewline
