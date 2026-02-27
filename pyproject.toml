@@ -11,9 +11,7 @@ license = { file = "LICENSE" }
 requires-python = ">=3.9"
 dependencies = []
 
-authors = [
-  { name = "", email = "" }
-]
+authors = []
 
 keywords = ["scaffolding", "templates", "cli", "boilerplate", "developer-tools"]
 
